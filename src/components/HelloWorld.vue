@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>ref值：{{ city }}</h2>
-    <h3>{{Msg}}</h3>
+    <h3>{{ Msg }}</h3>
     <button @click="increment">
       Count is: {{ state.count }}, double is: {{ state.double }}
     </button>
@@ -12,36 +12,43 @@
 </template>
 
 <script>
-import { ref, reactive, computed, isRef } from "vue";
+import { ref, reactive, computed, isRef, toRefs } from 'vue'
 
 export default {
   setup() {
-    const city = ref("1");
-    const Msg = ref("");
-    const userName = ref("mrwholala");
+    const city = ref('1')
+    const Msg = ref('')
+    const userName = ref('mrwholala')
     const state = reactive({
       count: 0,
       double: computed(() => state.count * 2)
-    });
+    })
 
     function increment() {
-      state.count++;
+      state.count++
     }
     const getCity = () => {
       if (isRef(userName)) {
-        Msg.value = `我叫：${userName.value},來自${city.value}`;
+        Msg.value = `我叫：${userName.value},來自${city.value}`
       } else {
-        Msg.value = `我叫：${userName.value}`;
+        Msg.value = `我叫：${userName.value}`
       }
-    };
+    }
+    const data = reactive({
+      userInfo: {
+        userName: 'xxxx'
+      },
+      code: 200
+    })
 
     return {
       state,
       city,
       Msg,
       increment,
-      getCity
-    };
-  },
-};
+      getCity,
+      ...toRefs(data)
+    }
+  }
+}
 </script>
