@@ -1,27 +1,37 @@
 <template>
+  <h2>ref值：{{ city }}</h2>
   <button @click="increment">
     Count is: {{ state.count }}, double is: {{ state.double }}
+  </button>
+  <button @click="getCity">
+    你来自哪里？
   </button>
 </template>
 
 <script>
-  import { reactive, computed } from 'vue'
+import { ref, reactive, computed } from "vue";
 
-  export default {
-    setup() {
-      const state = reactive({
-        count: 0,
-        double: computed(() => state.count * 2),
-      })
+export default {
+  setup() {
+    const city = ref("1");
+    const state = reactive({
+      count: 0,
+      double: computed(() => state.count * 2)
+    });
 
-      function increment() {
-        state.count++
-      }
+    function increment() {
+      state.count++;
+    }
+    const getCity = () => {
+      city.value = "cd";
+    };
 
-      return {
-        state,
-        increment,
-      }
-    },
+    return {
+      state,
+      city,
+      increment,
+      getCity
+    };
   }
+};
 </script>
